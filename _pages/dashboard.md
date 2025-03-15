@@ -6,6 +6,19 @@ permalink: /dashboard/
 
 <script type="module" src="/assets/js/firebase.js"></script>
 
+<script type="module">
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { auth } from "/assets/js/firebase.js"; // If exported, or re-import the config
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    // If no user is logged in, send them back to login
+    window.location.href = "/login/";
+  }
+});
+</script>
+
+
 # Interview Dashboard
 
 Welcome to your Interview Dashboard!
