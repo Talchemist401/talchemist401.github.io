@@ -25,7 +25,7 @@ description              : "At Talchemist.ai, we're transforming recruitment wit
 url                      : "https://talchemist.ai.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
-teaser                   : "/assets/images/500x300.png"
+teaser                   : "/assets/images/newbg.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : "Talchemist - Talent Transformation"
 breadcrumbs              : # true, false (default)
