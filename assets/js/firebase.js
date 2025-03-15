@@ -32,28 +32,31 @@ const auth = getAuth(app);
 // Initialize Firestore
 const db = getFirestore(app);
 
-// Functions to handle sign-up and sign-in
+// Sign-up (Register)
 window.registerUser = async (email, password) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     alert(`Registered as: ${userCredential.user.email}`);
-    // Optionally redirect to a dashboard page here
+    // Automatically redirect to the dashboard
+    window.location.href = "/dashboard/";
   } catch (error) {
     alert(`Registration Error: ${error.message}`);
   }
 };
 
+// Login
 window.loginUser = async (email, password) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     alert(`Logged in as: ${userCredential.user.email}`);
-    // Optionally redirect to a dashboard page here
+    // Automatically redirect to the dashboard
+    window.location.href = "/dashboard/";
   } catch (error) {
     alert(`Login Error: ${error.message}`);
   }
 };
 
-// Function to save interview questions to Firestore
+// Save interview questions to Firestore
 window.saveInterviewSession = async (questionsText) => {
   try {
     const docRef = await addDoc(collection(db, "interviewSessions"), {
