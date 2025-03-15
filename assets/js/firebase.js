@@ -8,6 +8,13 @@ import {
   signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
+// Import Firestore modules
+import {
+  getFirestore,
+  collection,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
 // Your actual Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyD-gAodfMUHL7eEarWHHcgmkzUr65FPxcU",
@@ -18,9 +25,12 @@ const firebaseConfig = {
   appId: "1:536025973021:web:98dbeecd7a9db3cc4121f4"
 };
 
-// Initialize Firebase (this line is required)
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+// Initialize Firestore
+const db = getFirestore(app);
 
 // Functions to handle sign-up and sign-in
 window.registerUser = async (email, password) => {
@@ -40,5 +50,18 @@ window.loginUser = async (email, password) => {
     // Optionally redirect to a dashboard page here
   } catch (error) {
     alert(`Login Error: ${error.message}`);
+  }
+};
+
+// Function to save interview questions to Firestore
+window.saveInterviewSession = async (questionsText) => {
+  try {
+    const docRef = await addDoc(collection(db, "interviewSessions"), {
+      questions: questionsText,
+      createdAt: new Date()
+    });
+    alert("Interview session saved with ID: " + docRef.id);
+  } catch (error) {
+    alert("Error saving session: " + error.message);
   }
 };
