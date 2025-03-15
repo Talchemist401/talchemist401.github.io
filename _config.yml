@@ -26,8 +26,8 @@ url                      : "https://talchemist.ai.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : "/assets/images/newbg.png"
-logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
-masthead_title           : "Talchemist - Talent Transformation"
+logo                     : "/assets/images/ico.png"
+masthead_title           : "Talchemist ~ Talent Transformed"
 breadcrumbs              : # true, false (default)
 words_per_minute         : 200
 enable_copy_code_button  : # true, false (default)
