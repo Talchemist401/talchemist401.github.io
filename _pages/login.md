@@ -1,3 +1,9 @@
+---
+layout: default
+title: Login
+permalink: /login.html
+---
+
 # Login to TalchemistMVP
 
 Welcome! Please enter your credentials below to log in.
