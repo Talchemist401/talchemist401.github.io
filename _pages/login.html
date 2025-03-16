@@ -27,6 +27,8 @@ Welcome! Please enter your credentials below to log in.
     <input type="password" id="password" placeholder="Enter your password" required>
 
     <button onclick="loginUser()">Login</button>
+  <p id="error-message" style="color: red;"></p>
+
 
     <h2>Register</h2>
     <label for="reg-email">Email:</label>
@@ -52,5 +54,6 @@ Welcome! Please enter your credentials below to log in.
             window.registerUser(email, password);
         }
     </script>
+  
 </body>
 </html>
