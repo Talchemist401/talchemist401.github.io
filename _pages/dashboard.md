@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Dashboard
-permalink: /dashboard/
+permalink: /dashboard.md/
 ---
 
 <script type="module" src="/assets/js/firebase.js"></script>
@@ -13,7 +13,7 @@ import { auth } from "/assets/js/firebase.js"; // If exported, or re-import the 
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     // If no user is logged in, send them back to login
-    window.location.href = "/login/";
+    window.location.href = "/login.html";
   }
 });
 </script>
