@@ -18,20 +18,25 @@ const auth = getAuth(app);
 
 // Function for logging in users
 window.loginUser = function() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (!email || !password) {
+        alert("Please enter both email and password.");
+        return;
+    }
 
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            alert("Login Successful!");
             console.log("User Logged In:", userCredential.user);
             window.location.href = "/dashboard.html"; // Redirect to dashboard on success
         })
         .catch((error) => {
-            alert("Error: " + error.message);
             console.error("Login Error:", error);
+            document.getElementById("error-message").innerText = error.message; // Display error message
         });
 };
+
 
 // Function for registering new users
 window.registerUser = function() {
