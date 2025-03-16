@@ -1,9 +1,7 @@
-// Import Firebase modules
+// Import Firebase modules from the CDN
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import {
   getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
@@ -20,7 +18,7 @@ import {
   getDocs
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
-// Firebase Config
+// 🔹 Your Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyD-gAodfMUHL7eEarWHHcgmkzUr65FPxcU",
   authDomain: "talchemistmvp.firebaseapp.com",
@@ -30,33 +28,11 @@ const firebaseConfig = {
   appId: "1:536025973021:web:98dbeecd7a9db3cc4121f4"
 };
 
-// Initialize Firebase
+// 🔹 Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
-
-// 🔹 Register User (Email/Password)
-window.registerUser = async (email, password) => {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    alert(`Registered as: ${userCredential.user.email}`);
-    window.location.href = "/dashboard/";
-  } catch (error) {
-    alert(`Registration Error: ${error.message}`);
-  }
-};
-
-// 🔹 Login User (Email/Password)
-window.loginUser = async (email, password) => {
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    alert(`Logged in as: ${userCredential.user.email}`);
-    window.location.href = "/dashboard/";
-  } catch (error) {
-    alert(`Login Error: ${error.message}`);
-  }
-};
 
 // 🔹 Google Login
 window.loginWithGoogle = async () => {
@@ -80,14 +56,14 @@ window.logoutUser = async () => {
   }
 };
 
-// 🔹 Save Interview Session Per User
+// 🔹 Save Interview Session to Firestore
 window.saveInterviewSession = async (questionsText, responses) => {
+  if (!auth.currentUser) {
+    alert("Please log in to save your interview session.");
+    return;
+  }
   try {
-    if (!auth.currentUser) {
-      alert("Please log in to save your interview session.");
-      return;
-    }
-    const docRef = await addDoc(collection(db, "interviewSessions"), {
+    await addDoc(collection(db, "interviewSessions"), {
       userEmail: auth.currentUser.email,
       questions: questionsText,
       responses: responses,
@@ -99,75 +75,39 @@ window.saveInterviewSession = async (questionsText, responses) => {
   }
 };
 
-// 🔹 Load Past Interviews for Logged-In User
-window.loadPastInterviews = async () => {
-  try {
-    if (!auth.currentUser) {
-      alert("Please log in to view past interviews.");
-      return;
-    }
-    const q = query(collection(db, "interviewSessions"), where("userEmail", "==", auth.currentUser.email));
-    const querySnapshot = await getDocs(q);
+// 🔹 Call GPT-4 via Firebase Cloud Function
+window.getAiFeedback = async (question) => {
+    const payload = {
+        model: "gpt-4",
+        messages: [
+            { role: "system", content: "You are an AI-powered interview assistant." },
+            { role: "user", content: question }
+        ]
+    };
 
-    let pastInterviewsHTML = "<h3>Past Interviews</h3><ul>";
-    querySnapshot.forEach(doc => {
-      pastInterviewsHTML += `<li><strong>${doc.data().questions}</strong>: ${doc.data().responses}</li>`;
+    const response = await fetch("https://us-central1-talchemistmvp.cloudfunctions.net/api/gpt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
     });
-    pastInterviewsHTML += "</ul>";
 
-    document.getElementById("questionContainer").innerHTML = pastInterviewsHTML;
-  } catch (error) {
-    alert(`Error loading past interviews: ${error.message}`);
-  }
+    const result = await response.json();
+    return result.choices ? result.choices[0].message.content : "Error: No response from AI";
 };
 
-// 🔹 Whisper API: Transcribe Audio to Text
+// 🔹 Transcribe Audio Using Whisper API
 window.transcribeAudio = async (audioBlob) => {
   const formData = new FormData();
   formData.append("file", audioBlob);
   formData.append("model", "whisper-1");
 
-  const response = await fetch("YOUR_SERVER_ENDPOINT/whisper", {
+  const response = await fetch("https://us-central1-talchemistmvp.cloudfunctions.net/api/whisper", {
     method: "POST",
-    headers: { "Authorization": `Bearer YOUR_OPENAI_API_KEY` },
     body: formData
   });
 
   const result = await response.json();
-  return result.text; // Return transcribed text
-};
-
-// 🔹 GPT-4 AI Analysis & Follow-ups
-window.getAiFeedback = async (question, response) => {
-  const payload = {
-    prompt: `Analyze this response: "${response}" to the question "${question}". Provide a quality assessment and 3 follow-up questions.`,
-    model: "gpt-4"
-  };
-
-  const responseAI = await fetch("YOUR_SERVER_ENDPOINT/gpt", {
-    method: "POST",
-    headers: { "Authorization": `Bearer YOUR_OPENAI_API_KEY`, "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  });
-
-  const result = await responseAI.json();
-  return result.choices[0].text; // Return AI-generated feedback
-};
-
-// 🔹 Stripe Payment (Subscription)
-window.subscribeUser = async (plan) => {
-  const response = await fetch("/api/checkout", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ plan })
-  });
-
-  const data = await response.json();
-  if (data.url) {
-    window.location.href = data.url; // Redirect to Stripe Checkout
-  } else {
-    alert("Subscription error: " + data.error);
-  }
+  return result.text || "Error: Unable to transcribe audio.";
 };
 
 // 🔹 Track User Login State
