@@ -1,20 +1,20 @@
 ---
-layout: archive
+layout: default
+title: Welcome to TalchemistMVP
+permalink: /
 ---
 
-{{ content }}
+<h1>Welcome to TalchemistMVP</h1>
+<p>Your AI-powered interview assistant.</p>
 
-<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
+<nav>
+    <ul>
+        <li><a href="/login.html">Login</a></li>
+        <li><a href="/dashboard.html">Dashboard</a></li>
+    </ul>
+</nav>
 
-{% if paginator %}
-  {% assign posts = paginator.posts %}
-{% else %}
-  {% assign posts = site.posts %}
-{% endif %}
-
-{% assign entries_layout = page.entries_layout | default: 'list' %}
-<div class="entries-{{ entries_layout }}">
-  {% include documents-collection.html entries=posts type=entries_layout %}
-</div>
-
-{% include paginator.html %}
+<section>
+    <h2>About</h2>
+    <p>TalchemistMVP helps recruiters conduct better interviews with AI-driven insights.</p>
+</section>
