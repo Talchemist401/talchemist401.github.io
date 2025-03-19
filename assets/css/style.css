@@ -59,3 +59,9 @@ footer {
   background: #ddd;
   color: #333;
 }
+/* Chat Panel Style */
+#chat-panel {
+  white-space: pre-wrap; /* Preserves whitespace and line breaks */
+  font-family: sans-serif; /* Use your preferred font */
+  padding: 10px;
+}
