@@ -17,14 +17,12 @@
   <!-- Footer Include -->
   {% include footer.html %}
 
-  <!-- Firebase Integration -->
-  <!-- Use the compat scripts so 'firebase' is defined globally -->
+  <!-- Firebase Integration (Compat Scripts) -->
   <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
-  <!-- Optionally, include other Firebase libraries if needed -->
   
   <script>
-    // Your existing Firebase config:
+    // Your existing Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyD-gAodfMUHL7eEarWHHcgmkzUr65FPxcU",
       authDomain: "talchemistmvp.firebaseapp.com",
@@ -33,12 +31,46 @@
       messagingSenderId: "536025973021",
       appId: "1:536025973021:web:98dbeecd7a9db3cc4121f4"
     };
-    
-    // Initialize Firebase (the global 'firebase' object is now available)
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
   </script>
 
-  <!-- Custom JavaScript for Firebase Authentication -->
+  <!-- Now that Firebase is initialized, handle onAuthStateChanged and Logout -->
+  <script>
+    console.log("Registering onAuthStateChanged...");
+
+    // 1) Listen for auth state changes
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log("Auth state changed, user =", user);
+      if (user) {
+        // User is logged in: show Logout, hide Login/Register
+        document.getElementById('login-link').style.display = 'none';
+        document.getElementById('register-link').style.display = 'none';
+        document.getElementById('logout-link').style.display = 'inline-block';
+      } else {
+        // User is not logged in: show Login/Register, hide Logout
+        document.getElementById('login-link').style.display = 'inline-block';
+        document.getElementById('register-link').style.display = 'inline-block';
+        document.getElementById('logout-link').style.display = 'none';
+      }
+    });
+
+    // 2) Handle logout
+    document.getElementById('logout-link').addEventListener('click', function(e) {
+      e.preventDefault();
+      firebase.auth().signOut()
+        .then(() => {
+          console.log("User logged out successfully");
+          window.location.href = "/";
+        })
+        .catch((error) => {
+          console.error("Logout error:", error);
+          alert("Logout failed: " + error.message);
+        });
+    });
+  </script>
+
+  <!-- Optional custom JS file if you decide to use it later -->
   <script src="/assets/js/auth.js"></script>
 </body>
 </html>
