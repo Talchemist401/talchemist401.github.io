@@ -47,3 +47,7 @@ permalink: /features/
     border: 2px solid lightblue;
   }
 </style>
+
+<!-- Include marked library and your custom chat.js file -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="{{ site.baseurl }}/js/chat.js"></script>
