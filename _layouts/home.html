@@ -1,26 +1,39 @@
----
-layout: home
-title: Welcome to TalchemistMVP
-permalink: /
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to Talchemist</h1>
+      <p>Your Recursive Recruiting assistant.</p>
+      <nav>
+        <ul>
+          <li><a href="{{ site.baseurl }}/login.html">Login</a></li>
+          <li><a href="{{ site.baseurl }}/dashboard/">Dashboard</a></li>
+        </ul>
+      </nav>
+    </header>
 
-<h1>Welcome to Talchemist</h1>
-<p>Your Recursive Recruiting assistant.</p>
+    <main>
+      <section>
+        <h2>About</h2>
+        <p>Talchemist revolutionizes recruiting by leveraging AI-driven recursive learning to enhance interview quality and decision-making as each role's journey unfolds. Unlike static updates that get lost in emails and spreadsheets, our proprietary technology evolves with every interview, organizational shift, or strategic pivot.</p>
+        <p>We iteratively capture your team's intuition, instincts, and creativity throughout the hiring process—then amplify it with cutting-edge AI. The result? Immediate and transformative improvements to your search strategies, hiring expectations, job postings, knockout questions, interview approaches...this list goes on and on, ultimately leading to the best hires your company has ever made.</p>
+      </section>
 
-<nav>
-    <ul>
-        <li><a href="{{ site.baseurl }}/login.html">Login</a></li>
-        <li><a href="{{ site.baseurl }}/dashboard/">Dashboard</a></li>
-    </ul>
-</nav>
+      <section>
+        <h2>Getting Started</h2>
+        <p>Sign up or log in to start using AI-driven interview insights.</p>
+        <a href="{{ site.baseurl }}/login.html" class="btn">Get Started</a>
+      </section>
+    </main>
 
-<section>
-    <h2>About</h2>
-    <p>Talchemist revolutionizes recruiting by leveraging AI-driven recursive learning to enhance interview quality and decision-making as each role's journey unfolds. Unlike static updates that get lost in emails and spreadsheets, our proprietary technology evolves with every interview, organizational shift, or strategic pivot.</p> <p>We iteratively captures your team's intuition, instincts, and creativity throughout the hiring process—then amplify it with cutting-edge AI. The result? Immediate and transformative improvements to your search strategies, hiring expectations, job postings, knockout questions, interview approaches...this list goes on and on, ultimately leading to the best hires your company has ever made."</p>
-</section>
-
-<section>
-    <h2>Getting Started</h2>
-    <p>Sign up or log in to start using AI-driven interview insights.</p>
-    <a href="{{ site.baseurl }}/login.html" class="btn">Get Started</a>
-</section>
+    <!-- Include marked library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Include your custom chat.js file -->
+    <script src="{{ site.baseurl }}/js/chat.js"></script>
+  </body>
+</html>
