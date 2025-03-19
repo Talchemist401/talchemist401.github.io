@@ -43,19 +43,29 @@
     firebase.auth().onAuthStateChanged((user) => {
       console.log("Auth state changed, user =", user);
       if (user) {
-        // User is logged in: show Logout, hide Login/Register
+        // User is logged in: hide Login/Register links, show Logout
         document.getElementById('login-link').style.display = 'none';
         document.getElementById('register-link').style.display = 'none';
         document.getElementById('logout-link').style.display = 'inline-block';
+        // Hide chat panel placeholder if it exists
+        const chatPlaceholder = document.getElementById('chat-placeholder');
+        if (chatPlaceholder) {
+          chatPlaceholder.style.display = 'none';
+        }
       } else {
         // User is not logged in: show Login/Register, hide Logout
         document.getElementById('login-link').style.display = 'inline-block';
         document.getElementById('register-link').style.display = 'inline-block';
         document.getElementById('logout-link').style.display = 'none';
+        // Show chat panel placeholder if it exists
+        const chatPlaceholder = document.getElementById('chat-placeholder');
+        if (chatPlaceholder) {
+          chatPlaceholder.style.display = 'block';
+        }
       }
     });
 
-    // 2) Handle logout
+    // 2) Handle logout click
     document.getElementById('logout-link').addEventListener('click', function(e) {
       e.preventDefault();
       firebase.auth().signOut()
@@ -72,5 +82,10 @@
 
   <!-- Optional custom JS file if you decide to use it later -->
   <script src="/assets/js/auth.js"></script>
+  
+  <!-- Load features.js only on the Features page -->
+  {% if page.title == "Features - Talchemist.ai" %}
+  <script src="/assets/js/features.js"></script>
+  {% endif %}
 </body>
 </html>
