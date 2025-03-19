@@ -1,10 +1,14 @@
-# Founding Staff Data Scientist – Build AI That Transforms Hiring
+# Founding Staff Data Scientist – AI Talent Transformation
 
 ## Why Talchemist Exists
 
-Recruiting is broken. Every hiring process starts with assumptions, early searches, and generic outreach—yet the real insights emerge later in the process. The hiring panel learns exactly what the perfect candidate looks like, but those insights never feed back into sourcing, outreach, or interview structures.
+Simon Sinek’s *Start with Why* reminds us that the most successful companies don’t just build products—they solve fundamental problems by starting with a clear **why**.
 
-The result? A static process in a dynamic world.
+**Here’s our why: Recruiting is broken.**
+
+Every hiring process starts with assumptions, early searches, and generic outreach—yet the real insights emerge later in the process. The hiring panel learns exactly what the perfect candidate looks like, but those insights never feed back into sourcing, outreach, or interview structures.
+
+**The result? A static process in a dynamic world.**
 
 Talchemist was built to fix this. Our **Recursive Recruiting™ engine** continuously refines hiring by capturing insights at every step. Instead of starting from scratch each time, our AI-driven approach ensures that every interaction makes the next one better.
 
@@ -30,8 +34,7 @@ We’re looking for a **Founding Staff Data Scientist** to build the AI backbone
 As an early-stage startup, we’re open to structuring compensation in a way that works for both of us:
 
 - **Equity-Heavy (Founding Team-Level Ownership)** – Take on significant equity with a minimal salary.
-- **Contract-to-Equity Model** – Get paid for initial work, then transition to an equity-based founding role.
-- **Salary + Equity Mix** – A competitive base salary with a strong equity package.
+- **Equity + Profit Sharing Model** – A balanced approach where you receive equity plus a share of company profits once we hit revenue milestones.
 
 ## Why This Role Matters
 
