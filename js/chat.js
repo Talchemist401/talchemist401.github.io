@@ -1,7 +1,8 @@
 // File location: /js/chat.js
 
-// Ensure you include the marked library in your HTML, e.g.,
+// Make sure you have included the marked library in your HTML, for example:
 // <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+// <script src="{{ site.baseurl }}/js/chat.js"></script>
 
 // Create a custom renderer for marked to adjust list item formatting for ✅ items.
 const renderer = new marked.Renderer();
@@ -15,12 +16,12 @@ renderer.listitem = function(text) {
   }
 };
 
-// Function for a typewriter effect running at 20× speed.
+// Function for a typewriter effect at 20× speed.
 function typeText(text, element, speedFactor = 20) {
   const defaultDelay = 50; // default delay per character in ms
-  const delay = defaultDelay / speedFactor; // 20× faster delay (2.5 ms per character)
+  const delay = defaultDelay / speedFactor; // 2.5 ms per character
   let index = 0;
-  
+
   function type() {
     if (index < text.length) {
       element.innerHTML += text.charAt(index);
@@ -37,34 +38,35 @@ function displayMarkdown(markdownText, element) {
   element.innerHTML = htmlContent;
 }
 
-// Execute when the DOM is fully loaded.
 document.addEventListener("DOMContentLoaded", function() {
-  // Render markdown content in an element with id "chat-panel" if it exists.
+  // 1. FETCH AND RENDER MARKDOWN IN #chat-panel
   const chatPanel = document.getElementById("chat-panel");
   if (chatPanel) {
-    const markdownContent = `
-# Welcome to the Chat Panel
-
-This is an example of **markdown** content with a typewriter effect running at 20× speed.
-
-- ✅ Completed item
-- Regular item in the list
-
-Some more text with a horizontal rule below.
-
----
-
-## Subheading
-
-More details here.
-    `;
-    displayMarkdown(markdownContent, chatPanel);
+    // Fetch the .md file from your repo. Adjust path if needed.
+    fetch("{{ site.baseurl }}/assets/content/intake-example.md")
+      .then(response => response.text())
+      .then(markdown => {
+        // Convert the raw Markdown to HTML
+        displayMarkdown(markdown, chatPanel);
+        // If you want to type out the entire Markdown at 20× speed (rather than instantly), 
+        // you can do this instead:
+        //
+        // const htmlContent = marked(markdown, { renderer: renderer });
+        // chatPanel.innerHTML = ""; // Clear existing
+        // typeText(htmlContent, chatPanel, 20);
+      })
+      .catch(error => {
+        console.error("Error fetching Markdown file:", error);
+        chatPanel.innerHTML = "<p>Failed to load content.</p>";
+      });
   }
-  
-  // Optionally, run the typewriter effect on an element with id "typewriter".
+
+  // 2. OPTIONAL TYPEWRITER EFFECT FOR #typewriter
   const typewriterElement = document.getElementById("typewriter");
   if (typewriterElement) {
+    // Clear any existing content
     typewriterElement.innerHTML = "";
+    // Type out text at 20× speed
     typeText("Typing out text at 20× speed...", typewriterElement, 20);
   }
 });
