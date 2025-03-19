@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const chatPanel = document.getElementById("chat-panel");
   if (chatPanel) {
     // Fetch the .md file from your repo. Adjust path if needed.
-    fetch("{{ site.baseurl }}/assets/content/intake-example.md")
+    fetch("https://talchemist401.github.io/assets/content/intake-example.md")
       .then(response => response.text())
       .then(markdown => {
         // Convert the raw Markdown to HTML
