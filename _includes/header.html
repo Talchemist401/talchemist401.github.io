@@ -21,6 +21,11 @@
   </div>
 </header>
 
+<!-- 
+  #5: Remove or comment out duplicate scripts to avoid conflicts.
+  The code below is commented out because we've moved 
+  onAuthStateChanged and logout logic to default.html. 
+
 <script>
   // Listen for changes in authentication state
   firebase.auth().onAuthStateChanged((user) => {
@@ -52,3 +57,4 @@
       });
   });
 </script>
+-->
